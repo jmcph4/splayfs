@@ -1,3 +1,6 @@
+use std::boxed::Box;
+use std::fmt::{Debug, Display};
+
 pub trait SplayTree<T> {
     type Error;
 
@@ -7,3 +10,12 @@ pub trait SplayTree<T> {
     fn height(&self) -> usize;
 }
 
+#[derive(Clone, Debug)]
+pub struct BoxedSplayTree<T>
+where
+    T: Sized + Clone + Display + Debug + Eq + Ord,
+{
+    value: T,
+    left: Option<Box<BoxedSplayTree<T>>>,
+    right: Option<Box<BoxedSplayTree<T>>>,
+}
